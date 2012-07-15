@@ -1,0 +1,13 @@
+This is a bed I built for my daughter, Hannah
+Basically, it's built around a grid derived from the footprint of
+the wooden beams. See the parameters in the OpenSCAD file.
+The construction and design is loosely based on the forms of Gerrit
+Rietveld's furniture (thanks Finn, for pointing this out).
+
+The BOM and hand-annotated construction plan is for 58x58 beams.
+
+!!! important note !!!
+The OpenSCAD file currently miscalculates the length of the short beam
+at the entrance - and I'm too lazy to fix this, as I already built the bed.
+You're welcome to fix it a send me a patch.
+
