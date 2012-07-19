@@ -11,25 +11,49 @@ echo("mattress size", INNER_X, INNER_Y);
 BEAM_X = 58;
 BOARD_X = 18;
 BOARD_Y = 144;
+FAZE = 1.15; // faze factor
+BOARD_FAZE = FAZE / 2.6;
 echo("beam width", BEAM_X);
 echo("board profile", BOARD_X, BOARD_Y);
+
+q = .1; // overlap for stl export
 
 module xbeam(dx, dy, dz) {
     translate([dx, dy, dz+BEAM_X/2])
     {    
-        cube(size=[INNER_Y+(BEAM_X*2), BEAM_X, BEAM_X], center=true);
+        difference() {
+            cube(size=[INNER_Y+(BEAM_X*2)+q, BEAM_X+q, BEAM_X+q], center=true);
+            for (r=[0+45, 90+45, 180+45, 270+45])     
+            rotate([r, 0, 0])
+                translate([0, BEAM_X*FAZE, 0]) 
+                    cube(size=[INNER_Y+(BEAM_X*2)+1, BEAM_X, BEAM_X], center=true);
+        }
     }
 }
 echo("X beam length", INNER_Y+(BEAM_X*2));
+
 module ybeam(dx, dy, dz) {
     translate([dx, dy, dz+BEAM_X/2]) {
-        cube(size=[BEAM_X, INNER_X+(BEAM_X*4), BEAM_X], center=true);        
+        difference() {
+            cube(size=[BEAM_X+q, INNER_X+(BEAM_X*4)+q, BEAM_X+q], center=true);        
+            for (r=[0+45, 90+45, 180+45, 270+45])     
+            rotate([0, r, 0])
+                translate([BEAM_X*FAZE, 0, 0]) 
+                    cube(size=[BEAM_X, INNER_X+(BEAM_X*4)+1, BEAM_X], center=true);
+        }
     }
 }
 echo("Y beam length", INNER_X+(BEAM_X*4));
+
 module zbeam(dx, dy, dz, ds=0) {
     translate([dx, dy, OUTER_Z/2+ds/2+dz]) {
-        cube(size=[BEAM_X, BEAM_X, OUTER_Z+ds], center=true);        
+        difference() {
+            cube(size=[BEAM_X+q, BEAM_X+q, OUTER_Z+ds+q], center=true);        
+            for (r=[0+45, 90+45, 180+45, 270+45])     
+            rotate([0, 0, r])
+                translate([BEAM_X*FAZE, 0, 0]) 
+                    cube(size=[BEAM_X, BEAM_X, OUTER_Z+ds+1], center=true);
+        }
     }
 }
 echo("Z beam length", OUTER_Z);
@@ -46,7 +70,13 @@ module etage(dz) {
 
 module yboard(dx, dy, dz) {
     translate([dx, dy, dz]) {
-        cube(size=[BOARD_X, INNER_X+(BEAM_X*4), BOARD_Y], center=true);
+        difference() {
+            cube(size=[BOARD_X+q, INNER_X+(BEAM_X*4)+q, BOARD_Y+q], center=true);
+            for (r=[0+45, 90+45, 180+45, 270+45])     
+            rotate([0, r, 0])
+                translate([BOARD_Y*BOARD_FAZE, 0, 0]) 
+                    cube(size=[BOARD_X, INNER_X+(BEAM_X*4)+1, BOARD_Y], center=true);
+        }
     }
 }
 
@@ -67,17 +97,30 @@ difference() {
     etage(OUTER_Z-(BEAM_X*2));
     // entrance
     translate([410/2, -INNER_X/2-BEAM_X/2, OUTER_Z-(BEAM_X*1.5)]) 
-        cube(size=[410-BEAM_X, BEAM_X*2, BEAM_X*2], center=true);
+        cube(size=[410-BEAM_X+q, BEAM_X*2+q, BEAM_X*2+q], center=true);
 }
 echo("entrance width", 410-BEAM_X);
 etage(OUTER_Z-(BEAM_X*2)-320);
 
 translate([0, -INNER_X/2-BEAM_X+BOARD_X/2, OUTER_Z-BEAM_X-320+BOARD_Y]) {
     translate([-INNER_Y/4+BEAM_X/4, 0, 0])
-        cube(size=[INNER_Y/2+BEAM_X/2, BOARD_X, BOARD_Y], center=true);
+        difference() {
+            cube(size=[INNER_Y/2+BEAM_X/2+q, BOARD_X+q, BOARD_Y+q], center=true);
+            for (r=[0+45, 90+45, 180+45, 270+45])     
+            rotate([r, 0, 0])
+                translate([0, BOARD_Y*BOARD_FAZE, 0]) 
+                    cube(size=[INNER_Y/2+BEAM_X/2+1, BOARD_X, BOARD_Y], center=true);
+        }
     translate([(INNER_Y-520)/2-BEAM_X, 0, 0])
-        cube(size=[INNER_Y/2-410+BEAM_X/2, BOARD_X, BOARD_Y], center=true);
+        difference() {
+            cube(size=[INNER_Y/2-410+BEAM_X/2+q, BOARD_X+q, BOARD_Y+q], center=true);
+            for (r=[0+45, 90+45, 180+45, 270+45])     
+            rotate([r, 0, 0])
+                translate([0, BOARD_Y*BOARD_FAZE, 0]) 
+                    cube(size=[INNER_Y/2-410+BEAM_X/2+1, BOARD_X, BOARD_Y], center=true);
+        }
 }
+echo("following values might be wrong(!):")
 echo("boards at entry");
 echo("  left side", INNER_Y/2+BEAM_X/2);
 echo("  right side", INNER_Y/2-410+BEAM_X/2);
@@ -106,7 +149,7 @@ translate([410/2, -(INNER_X+3*BEAM_X)/2, 250])
 for (z = [0:1]) {
     translate([0, 0, z*250]) {
         rotate([90, 0, 90]) 
-        cylinder(r=30/2, h=410, center=true);
+        cylinder(r=30/2, h=410+q, center=true);
     }
 }
 
