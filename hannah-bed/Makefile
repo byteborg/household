@@ -1,5 +1,5 @@
 # Makefile for mat-holder
-
+# slice options for slic3r 0.8.4
 SLICEOPTS = --temperature 190 \
 	--extrusion-multiplier 1.05 \
 	--perimeters 1 \
