@@ -2,7 +2,7 @@
 q = .25; // tolerance
 wx = 40.5+1; // width
 wy = 51+1; // length
-thick = 2.75; // thickness
+thick = 2.79; // thickness
 over = 20; // oversize
 $fn = 8;
 //$fn=5;
