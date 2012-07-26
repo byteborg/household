@@ -5,7 +5,7 @@
 
 $fn=12;
 radius = 15;
-wall = .5;
+wall = 1.5;
 tol = .1;
 stretch = 2.6;
 linkh = 10;
