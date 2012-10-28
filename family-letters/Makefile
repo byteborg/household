@@ -8,7 +8,7 @@ SLICEOPTS = --temperature 195 \
 	--solid-layers 3 \
 	--layer-height 0.4 \
 	--fill-density 0.3 \
-	--fill-angle 45 \
+	--fill-angle 55 \
 	--fill-pattern rectilinear \
 	--start-gcode ../../Slic3r/start.gcode \
 	--end-gcode ../../Slic3r/end.gcode \
