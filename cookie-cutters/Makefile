@@ -4,11 +4,11 @@ SLICEOPTS = --temperature 195 \
 	--extrusion-multiplier 1.00 \
 	--no-extra-perimeters \
 	--no-randomize-start \
-	--perimeters 3 \
-	--solid-layers 3 \
-	--layer-height 0.4 \
-	--fill-density 0.3 \
-	--fill-angle 55 \
+	--perimeters 2 \
+	--solid-layers 2 \
+	--layer-height 0.3 \
+	--fill-density 0.7 \
+	--fill-angle 45 \
 	--fill-pattern rectilinear \
 	--start-gcode ../../Slic3r/start.gcode \
 	--end-gcode ../../Slic3r/end.gcode \
@@ -22,10 +22,10 @@ SLICEOPTS = --temperature 195 \
 	# --duplicate 4 \
     # --gcode-flavor no-extrusion
 
-all:	letters.gcode letters.stl
+all:	caterpillar.gcode caterpillar.stl bat.gcode bat.stl
 
 %.stl: %.scad
-	/usr/local/bin/openscad -o $@ $<
+	openscad -o $@ $<
 
 %.gcode: %.stl Makefile
 	../../Slic3r/slic3r.pl $(SLICEOPTS) $(MULTI) $<
