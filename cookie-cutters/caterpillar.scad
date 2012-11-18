@@ -6,10 +6,10 @@ inputfile = "caterpillar-contour.dxf";
 wallThick = 2;
 cutterMinimum = 0.4;
 baseHeight = 2;
-height = 15;
+height = 10;
 flangeWidth = 6;
 
-cube([7,5,1], center=true);
+//cube([7,5,1], center=true);
 
 minkowski(){
 	outline();

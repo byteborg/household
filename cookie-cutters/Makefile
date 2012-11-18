@@ -2,7 +2,7 @@
 SLICEOPTS = --temperature 195 \
     --filament-diameter 2.9 \
 	--extrusion-multiplier 1.00 \
-	--no-extra-perimeters \
+	--extra-perimeters \
 	--no-randomize-start \
 	--perimeters 2 \
 	--solid-layers 2 \
@@ -23,6 +23,9 @@ SLICEOPTS = --temperature 195 \
     # --gcode-flavor no-extrusion
 
 all:	caterpillar.gcode caterpillar.stl bat.gcode bat.stl
+
+bat.stl: bat.scad bat-contour.scad
+	openscad -o $@ $<
 
 %.stl: %.scad
 	openscad -o $@ $<
