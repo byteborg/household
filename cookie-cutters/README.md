@@ -42,8 +42,8 @@ Way of production:
   - render STL from OpenSCAD when satisfied
 
 
-mrbenbritton's cookie cutter script:
+[1] mrbenbritton's cookie cutter script:
     http://www.thingiverse.com/thing:28882
 
-Inkscape OpenSCAD extension:
+[2] Inkscape OpenSCAD extension:
     https://github.com/martymcguire/inkscape-openscad-poly
