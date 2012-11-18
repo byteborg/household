@@ -11,35 +11,35 @@ for OpenSCAD which can be found on Thingiverse.
 
 Way of production:
 
-1. photograph drawing on paper
+- photograph drawing on paper
 
-2. Gimp
+- Gimp
 
- - cut down image to work area
+  - cut down image to work area
 
- - fix "holes" in the outline with paint brush tool
+  - fix "holes" in the outline with paint brush tool
 
- - reduce to 1bit depth with appropriate threshold
+  - reduce to 1bit depth with appropriate threshold
 
-3. Inkscape
+- Inkscape
 
- - import into new Inkscape drawing
+  - import into new Inkscape drawing
 
- - convert bitmap to outlines
+  - convert bitmap to outlines
 
- - switch view mode to outlines
+  - switch view mode to outlines
 
- - use path select tool to cut away outer or inner part of silhouette
+  - use path select tool to cut away outer or inner part of silhouette
 
- - export as OpenSCAD polygons with Inkscape OpenSCAD extension[2]
+  - export as OpenSCAD polygons with Inkscape OpenSCAD extension[2]
 
-4. OpenSCAD
+- OpenSCAD
 
- - create new file from mrbenbrittons cookie cutter[1]
+  - create new file from mrbenbrittons cookie cutter[1]
 
- - include polygon OpenSCAD file and scale to appropriate dimensions
+  - include polygon OpenSCAD file and scale to appropriate dimensions
 
- - render STL from OpenSCAD when satisfied
+  - render STL from OpenSCAD when satisfied
 
 
 mrbenbritton's cookie cutter script:
