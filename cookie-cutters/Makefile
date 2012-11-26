@@ -22,7 +22,7 @@ SLICEOPTS = --temperature 195 \
 	# --duplicate 4 \
     # --gcode-flavor no-extrusion
 
-all:	caterpillar.gcode caterpillar.stl bat.gcode bat.stl
+all:	caterpillar.stl bat.stl unicorn.stl
 
 bat.stl: bat.scad bat-contour.scad
 	openscad -o $@ $<
