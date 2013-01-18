@@ -2,25 +2,27 @@
 // byteborg 2012
 // rudimentary BOM will be echoed on compile
 
+// all values are meant as samples
+
 use <MCAD/metric_fastners.scad>;
 
 // system constants
 GR = 1.618;  // golden ratio
-q = 1;       // precision offset (diff/tolerance)
+q = .77;       // precision offset (diff/tolerance)
 
 // material thickness
-TCORP = 12;  // corpus
-TFRONT = 3;  // front (tapa)
-TBACK = 6;   // back
-TSQ = 20;    // square wood
+TCORP = 12.3;  // corpus
+TFRONT = 3.3;  // front (tapa)
+TBACK = 6.3;   // back
+TSQ = 20.3;    // square wood
 
 // outer dimensions
-XDIM = 300;  // width
-YDIM = 300;  // depth
-ZDIM = 500;  // height
+XDIM = 298.371;  // width
+YDIM = 298.371;  // depth
+ZDIM = 499.372;  // height
 
 // port dimension
-HDIA = 120;
+HDIA = 120.371;
 HX = XDIM-(XDIM / GR);
 HY = ZDIM-(ZDIM / GR);
 
@@ -137,7 +139,7 @@ module corpus() {
 }
 
 corpus();
-color("BurlyWood") translate([XDIM/2, 0, TCORP]) string_assy();
-// front();
+// just an idea... does this work?
+//color("BurlyWood") translate([XDIM/2, 0, TCORP]) string_assy();
 
 //.
