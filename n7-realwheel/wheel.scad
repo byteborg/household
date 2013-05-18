@@ -105,7 +105,7 @@ CLICK_Y = 200;
 CLICK_Z = 100;
 
 LOCK_X = 10;    // click lock length
-LOCK_Y = 2;     // click tooth depth
+LOCK_Y = 1.5;     // click tooth depth
 
 module click() {
     translate([-LOCK_X/2, -CLICK_Y/2, 0])
@@ -133,7 +133,7 @@ module click() {
 CUT_X = 400;
 CUT_Y = 200;
 CUT_Z = 100;
-ADJ = 5;
+ADJ = 5.9; // Dirty, but works
 
 module plate() {
     rotate([0, -90, 0]) {
