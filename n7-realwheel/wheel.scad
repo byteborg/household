@@ -1,11 +1,14 @@
 // steering wheel for nexus 7
 
-FN = 8;  // 2 for draft, 16 for production
-// assembly(); // to draft
-plate();  // to print
+FN = 8;  // 1 for draft, 8 for production
+if (TRG>0) {
+    plate();
+} else {
+    assembly();
+}
 
 N7_X = 198.5;
-N7_Y = 120;
+N7_Y = 120 - .5;
 N7_Z = 10.45;
 
 q = .2;
@@ -68,24 +71,61 @@ module grips() {
 }
 
 module usb_plug() {
-    for(m=[0/*, 1*/]) {
-        mirror([m, 0, 0]) {
-            translate([-(N7_X/2+10), 0, 0])
-                rotate([0, 90, 0]) {
-                    difference() {
-                        union() {
-                            // cylinder(r=5, h=40, center=true);
-                            translate([2, 0, -2.5])
-                                cylinder(r=10, h=35, center=true);
-                            translate([20, 0, -2.5])
-                                cube(size=[40, 20, 35], center=true);
-                        }
-                        translate([-(50+5), 0, 0])
-                            cube(size=[100, 100, 100], center=true);
-                    }
+    translate([-(N7_X/2+10), 0, 0]) {
+        rotate([0, 90, 0]) {
+            difference() {
+                union() {
+                    // cylinder(r=5, h=40, center=true);
+                    translate([2, 0, -2.5])
+                        cylinder(r=10, h=35, center=true);
+                    translate([20, 0, -2.5])
+                        cube(size=[40, 20, 35], center=true);
+                }
+                translate([-(50+5), 0, 0])
+                    cube(size=[100, 100, 100], center=true);
             }
         }
     }
+}
+module phones_plug() {
+    // phones plug hole
+    translate([-(N7_X/2+10), -42, 0]) {
+        rotate([0, 90, 0]) {
+            difference() {
+                union() {
+                    // cylinder(r=5, h=40, center=true);
+                    translate([2, 0, 2.5])
+                        cylinder(r=10, h=25, center=true);
+                    translate([20, 0, 2.5])
+                        cube(size=[40, 20, 25], center=true);
+                }
+                translate([-(50+5), 0, 0])
+                    cube(size=[100, 100, 100], center=true);
+            }
+        }
+    }
+}
+module speaker_holes() {
+    translate([-N7_X/2+12+2.5, 0, -5])
+        for(y=[-3:3]) {
+            translate([0, y*9, 0]) {
+                rotate([0, 0, 45])
+                cube(size=[5, 5, 10], center=true);
+            }
+        }
+    // #cube(size=[5, 60, 10], center=true);
+}
+
+BUT_X = 50;
+BUT_OFS = 25;
+
+module buttons() {
+    translate([N7_X/2-BUT_X/2-BUT_OFS, -N7_Y/2, 0])
+    rotate([0, 0, 0])
+    translate([0, -5, -10])
+    // rotate([0, 90, 0])
+    // #cylinder(r=10, h=BUT_X, center=true);
+    cube(size=[BUT_X, 20, 20], center=true);
 }
 
 module assembly( ){
@@ -97,6 +137,9 @@ module assembly( ){
         }
         n7_device();
         usb_plug();
+        phones_plug();
+        speaker_holes();
+        buttons();
     }
 }
 
@@ -133,41 +176,47 @@ module click() {
 CUT_X = 400;
 CUT_Y = 200;
 CUT_Z = 100;
-ADJ = 5.9; // Dirty, but works
+ADJ = -50; // Dirty, but works
+DISP = GRIP*0.66;
 
 module plate() {
     rotate([0, -90, 0]) {
-        // inner L
-        translate([CIRC_INNER+ADJ, 0, GRIP*2/3])
-        difference() {
-            assembly();
-            translate([-(CUT_X/2+CIRC_INNER+ADJ), 0, 0]) cube(size=[CUT_X, CUT_Y, CUT_Z], center=true);
-            click();
-        }
-        // outer L
-        translate([-CIRC_INNER-ADJ, 0, GRIP*2])
-        rotate([0, 0, 180])
-        difference() {
-            assembly();
-            translate([-(-CUT_X/2+CIRC_INNER+ADJ), 0, 0]) cube(size=[CUT_X, CUT_Y, CUT_Z], center=true);
-        }
-
-        // inner R
-        translate([CIRC_INNER+ADJ, 0, -GRIP*2/3])
-        rotate([0, 0, 180])
-        difference() {
-            assembly();
+        if(TRG==1) {
+            // inner L
+            translate([CIRC_INNER+ADJ, 0, DISP*2/3])
+            difference() {
+                assembly();
+                translate([-(CUT_X/2+CIRC_INNER+ADJ), 0, 0]) cube(size=[CUT_X, CUT_Y, CUT_Z], center=true);
+                click();
+            }
+            // inner R
+            translate([CIRC_INNER+ADJ, 0, -DISP*2/3])
             rotate([0, 0, 180])
-            translate([-(CUT_X/2+CIRC_INNER+ADJ), 0, 0]) cube(size=[CUT_X, CUT_Y, CUT_Z], center=true);
-            rotate([0, 0, 180])
-            click();
+            difference() {
+                assembly();
+                rotate([0, 0, 180])
+                translate([-(CUT_X/2+CIRC_INNER+ADJ), 0, 0]) cube(size=[CUT_X, CUT_Y, CUT_Z], center=true);
+                rotate([0, 0, 180])
+                click();
+            }
         }
-        // outer R
-        translate([-(CIRC_INNER+ADJ), 0, -GRIP*2])
-        difference() {
-            assembly();
-            rotate([0, 180, 0])
-            translate([-(-CUT_X/2+CIRC_INNER+ADJ), 0, 0]) cube(size=[CUT_X, CUT_Y, CUT_Z], center=true);
+        if(TRG==2) {
+            // outer L
+            translate([-CIRC_INNER-ADJ, 0, DISP*2])
+            rotate([0, 0, 180])
+            difference() {
+                assembly();
+                translate([-(-CUT_X/2+CIRC_INNER+ADJ), 0, 0]) cube(size=[CUT_X, CUT_Y, CUT_Z], center=true);
+            }
+        }
+        if(TRG==3) {
+            // outer R
+            translate([-(CIRC_INNER+ADJ), 0, -DISP*2])
+            difference() {
+                assembly();
+                rotate([0, 180, 0])
+                translate([-(-CUT_X/2+CIRC_INNER+ADJ), 0, 0]) cube(size=[CUT_X, CUT_Y, CUT_Z], center=true);
+            }
         }
     }
 }

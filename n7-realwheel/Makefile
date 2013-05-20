@@ -1,33 +1,16 @@
-# slice options for slic3r 0.8.4
-SLICEOPTS = --temperature 195 \
-    --filament-diameter 2.9 \
-	--extrusion-multiplier 1.00 \
-	--perimeters 2 \
-	--no-extra-perimeters \
-	--randomize-start \
-	--solid-layers 2 \
-	--layer-height 0.41 \
-	--fill-density 0.7 \
-	--fill-angle 30 \
-	--fill-pattern rectilinear \
-	--start-gcode ../../Slic3r/start.gcode \
-	--end-gcode ../../Slic3r/end.gcode \
-	--retract-length 2.9 \
-	--retract-speed 20 \
-	--retract-lift 0.22 \
-	--bed-size 180,170 \
-	--print-center 85,85 \
-	--perimeter-speed 30 \
-	--infill-speed 60 \
-	--duplicate 4 \
-    # --gcode-flavor no-extrusion
 
-all:	wheel.gcode wheel.stl
+all:	wheel.stl plate1.stl plate2.stl plate3.stl
 
-%.stl: %.scad
-	openscad -o $@ $<
+wheel.stl: wheel.scad
+	openscad -D TRG=0 -o $@ $<
 
-%.gcode: %.stl Makefile
-	../../Slic3r/slic3r.pl $(SLICEOPTS) $(MULTI) $<
+plate1.stl: wheel.scad
+	openscad -D TRG=1 -o $@ $<
+
+plate2.stl: wheel.scad
+	openscad -D TRG=2 -o $@ $<
+
+plate3.stl: wheel.scad
+	openscad -D TRG=3 -o $@ $<
 
 #.
