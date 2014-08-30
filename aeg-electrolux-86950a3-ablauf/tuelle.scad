@@ -26,7 +26,7 @@ module part() {
 }
 
 module fit() {
-    cylinder(r=.7, h=5, center=false);
+    cylinder(r=1, h=5, center=false);
     // translate([0, 0, +5/2]) 
     // difference() {
     //     cylinder(r=1/2, h=5, center=true);
