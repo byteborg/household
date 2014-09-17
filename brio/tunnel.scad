@@ -5,7 +5,7 @@ XCL = 45; // x clearance
 ZCL = 77; // z clearance
 LENGTH = 80; // tunnel length
 THICKNESS = 5; // wall thickness
-RR = 3; // rounded corner radius
+RR = 2; // rounded corner radius
 qq=.01;
 
 X = XCL+THICKNESS*2;
@@ -27,7 +27,7 @@ module tunnel() {
         translate([RR, RR, 0]) difference() {
             minkowski() {
                 cube(size=[X-(RR*2), Y-(RR*2), Z-(RR)], center=false);
-                sphere(r=RR, $fn=24);
+                sphere(r=RR, $fn=8);
             }
             translate([0, 0, -50]) cube(size=[X*3, Y*3, 100], center=true);
         }
@@ -39,5 +39,4 @@ module tunnel() {
  
 
 }
-
 translate([0, 0, Z]) rotate([180, 0, 0]) tunnel();
