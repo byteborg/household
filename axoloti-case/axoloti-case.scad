@@ -53,12 +53,21 @@ module fix(d=8, i=3, h=20, rot=0) {
 }
 //fix();
 
-module combine() {
+module fix_hole(d=8, i=3, h=THICK) {
+    translate([0, 0, -h/2]) cylinder(r1=i/2, r2=d/2, h=h+q*2, center=true, $fn=24);
+}
+//fix_hole();
+
+module lower() {
     difference() {
         outer();
+        // board
         translate([0, 0, THICK]) inner();
+        // cutaway
+        translate([-BRD_X/4, -BRD_Y/4, BRD_Z+(GAP*2)+THICK-q])
+            cube(size=[BRD_X*2, BRD_Y*2, 10]);
     }
-    // mounting holes
+    // mounting
     translate([GAP, GAP, GAP/2-q]) difference() {
         translate([0, 0, THICK]) axoloti_board_holes(ex=GAP, d=6, fn=24);
         translate([0, 0, THICK]) axoloti_board_holes(ex=20, d=3);
@@ -78,7 +87,33 @@ module combine() {
         rotate([0, 0, 0]) fix(d=fix_d, i=3, h=fix_h);
 }
 
-combine();
+module upper() {
+    difference() {
+        translate([0, 0, -BRD_Z-(GAP*2)-THICK])
+        difference() {
+            outer();
+            // board
+            translate([0, 0, THICK]) inner();
+            // cutaway
+            translate([-BRD_X/4, -BRD_Y/4, BRD_Z+(GAP*2)+THICK-BRD_Z*2])
+            cube(size=[BRD_X*2, BRD_Y*2, BRD_Z*2-q]);
+        }
+        // fix holes
+        fix_d = 8;
+        translate([THICK+q, THICK+q, THICK])
+            fix_hole();
+        translate([THICK+q, THICK+BRD_Y+(GAP*2)-(fix_d/2)-q, THICK])
+            fix_hole();
+        translate([THICK+BRD_X+(GAP*2)-(fix_d/2)-q, THICK+q, THICK])
+            fix_hole();
+        translate([THICK+BRD_X+(GAP*2)-(fix_d/2)-q, THICK+BRD_Y+(GAP*2)-(fix_d/2)-q, THICK])
+            fix_hole();
+
+    }
+}
+
+lower();
+translate([0, -BRD_Y-20, 0]) upper();
 
 /*difference() {
     render() combine();
