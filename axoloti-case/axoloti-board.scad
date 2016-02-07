@@ -1,14 +1,14 @@
-module axoloti_board_holes(ex=10) {
+module axoloti_board_holes(ex=10, d=3, fn=12) {
     // mounting holes
-    translate([3.5, 11, 0]) cylinder(r=3/2, h=ex, center=true, $fn=12);
-    translate([3.5, 40, 0]) cylinder(r=3/2, h=ex, center=true, $fn=12);
-    translate([44, 40, 0]) cylinder(r=3/2, h=ex, center=true, $fn=12);
-    translate([106, 11, 0]) cylinder(r=3/2, h=ex, center=true, $fn=12);
-    translate([106, 40, 0]) cylinder(r=3/2, h=ex, center=true, $fn=12);
-    translate([116, 11, 0]) cylinder(r=3/2, h=ex, center=true, $fn=12);
-    translate([116, 40, 0]) cylinder(r=3/2, h=ex, center=true, $fn=12);
-    translate([156.5, 11, 0]) cylinder(r=3/2, h=ex, center=true, $fn=12);
-    translate([156.5, 40, 0]) cylinder(r=3/2, h=ex, center=true, $fn=12);
+    translate([3.5, 11, 0]) cylinder(r=d/2, h=ex, center=true, $fn=fn);
+    translate([3.5, 40, 0]) cylinder(r=d/2, h=ex, center=true, $fn=fn);
+    translate([44, 40, 0]) cylinder(r=d/2, h=ex, center=true, $fn=fn);
+    translate([106, 11, 0]) cylinder(r=d/2, h=ex, center=true, $fn=fn);
+    translate([106, 40, 0]) cylinder(r=d/2, h=ex, center=true, $fn=fn);
+    translate([116, 11, 0]) cylinder(r=d/2, h=ex, center=true, $fn=fn);
+    translate([116, 40, 0]) cylinder(r=d/2, h=ex, center=true, $fn=fn);
+    translate([156.5, 11, 0]) cylinder(r=d/2, h=ex, center=true, $fn=fn);
+    translate([156.5, 40, 0]) cylinder(r=d/2, h=ex, center=true, $fn=fn);
 }
 
 module axoloti_board(ex=0) {
