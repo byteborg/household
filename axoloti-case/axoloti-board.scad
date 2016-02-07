@@ -1,3 +1,16 @@
+module axoloti_board_holes(ex=10) {
+    // mounting holes
+    translate([3.5, 11, 0]) cylinder(r=3/2, h=ex, center=true, $fn=12);
+    translate([3.5, 40, 0]) cylinder(r=3/2, h=ex, center=true, $fn=12);
+    translate([44, 40, 0]) cylinder(r=3/2, h=ex, center=true, $fn=12);
+    translate([106, 11, 0]) cylinder(r=3/2, h=ex, center=true, $fn=12);
+    translate([106, 40, 0]) cylinder(r=3/2, h=ex, center=true, $fn=12);
+    translate([116, 11, 0]) cylinder(r=3/2, h=ex, center=true, $fn=12);
+    translate([116, 40, 0]) cylinder(r=3/2, h=ex, center=true, $fn=12);
+    translate([156.5, 11, 0]) cylinder(r=3/2, h=ex, center=true, $fn=12);
+    translate([156.5, 40, 0]) cylinder(r=3/2, h=ex, center=true, $fn=12);
+}
+
 module axoloti_board(ex=0) {
     // axoloti board
     difference() {
@@ -6,20 +19,12 @@ module axoloti_board(ex=0) {
         translate([104.25, 0, 0]) cube(size=[8, 1, 10], center=true);
         translate([100.25, 0, 0]) cylinder(r=1/2, h=10, center=true, $fn=12);
         translate([108.25, 0, 0]) cylinder(r=1/2, h=10, center=true, $fn=12);
-        // mounting holes
-        translate([3.5, 11, 0]) cylinder(r=3/2, h=10, center=true, $fn=12);
-        translate([3.5, 40, 0]) cylinder(r=3/2, h=10, center=true, $fn=12);
-        translate([44, 40, 0]) cylinder(r=3/2, h=10, center=true, $fn=12);
-        translate([106, 11, 0]) cylinder(r=3/2, h=10, center=true, $fn=12);
-        translate([106, 40, 0]) cylinder(r=3/2, h=10, center=true, $fn=12);
-        translate([116, 11, 0]) cylinder(r=3/2, h=10, center=true, $fn=12);
-        translate([116, 40, 0]) cylinder(r=3/2, h=10, center=true, $fn=12);
-        translate([156.5, 11, 0]) cylinder(r=3/2, h=10, center=true, $fn=12);
-        translate([156.5, 40, 0]) cylinder(r=3/2, h=10, center=true, $fn=12);
         // split
         translate([110, -.01, -5]) cube(size=[2, 5.5, 10]);
         translate([110, 15, -5]) cube(size=[2, 8, 10]);
         translate([110, 41, -5]) cube(size=[2, 18, 10]);
+        // holes
+        axoloti_board_holes(h=10);
     }
     translate([0,0,2]) color([.4,1,.4,1]) {
         // IN 6.3 jack
