@@ -5,21 +5,23 @@
 
 include <UbuntuB.scad>;
 
-// LETTER = "K";
-// LOFS_X = 12;
-// INNER_X = 135;
+DRAW_LETTER = false;
 
-// LETTER = "V";
-// LOFS_X = 14;
-// INNER_X = 165;
-
-// LETTER = "J";
-// LOFS_X = 10;
-// INNER_X = 135;
-
-LETTER = "H";
-LOFS_X = 11;
+LETTER = "K";
+LOFS_X = 12;
 INNER_X = 135;
+
+//LETTER = "V";
+//LOFS_X = 14;
+//INNER_X = 165;
+
+//LETTER = "J";
+//LOFS_X = 10;
+//INNER_X = 135;
+
+//LETTER = "H";
+//LOFS_X = 11;
+//INNER_X = 135;
 
 LOFS_Z = -4;    // letter inset
 // INNER_X = 135;  // inner width
@@ -53,8 +55,10 @@ module part() {
     difference() {
         outer();
         inner();
-        translate([-INNER_X/2+LOFS_X, -INNER_Y/2-THICKNESS*2-LOFS_Z, 4]) rotate([90, 0, 0]) scale(0.5)
-            UbuntuB(LETTER, center=true, steps=5);
+        if (DRAW_LETTER) {
+            translate([-INNER_X/2+LOFS_X, -INNER_Y/2-THICKNESS*2-LOFS_Z, 4]) rotate([90, 0, 0]) scale(0.5)
+                UbuntuB(LETTER, center=true, steps=5);
+        }
         translate([0, 0, INNER_Z+100/2+THICKNESS/2])
             cube(size=[INNER_X*2, INNER_Y*2, 100], center=true);
     }
